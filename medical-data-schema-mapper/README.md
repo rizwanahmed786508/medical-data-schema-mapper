@@ -425,11 +425,15 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 👤 Author
 
+<div align="center">
+
 **Rizwan Ahmed**
-Machine Learning / AI Engineering Intern — **NGC Lahore**
 
-- 🔗 GitHub: [@rizwanahmed786508](https://github.com/rizwanahmed786508)
-
+[![GitHub](https://img.shields.io/badge/GitHub-rizwanahmed786508-181717?style=for-the-badge&logo=github)](https://github.com/rizwanahmed786508)
+[![GitHub](https://img.shields.io/badge/GitHub-rizwanahmed78-181717?style=for-the-badge&logo=github)](https://linkedin.com/rizwanahmed78)
+[![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white)](https://kaggle.com/rizwanahmedlund)
+[![Email](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:rizwanmb310@gmail.com)
+</div>
 ---
 
 ## 🙏 Acknowledgements
