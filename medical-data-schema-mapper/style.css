@@ -1,52 +1,69 @@
 /* ==========================================================
-   Medical Data Schema Mapper — Premium Dark Theme
-   Palette: Charcoal / Slate base, Emerald + Purple + Teal accents
+   Medical Data Schema Mapper — Professional Dark Theme v2
+   Design system: single dominant accent (Clinical Teal) with
+   Indigo as a quiet secondary and Amber reserved for warnings.
+   Typography: Sora (display) + Inter (body/UI) — both loaded
+   from Google Fonts so weight/legibility is consistent for
+   every visitor, not dependent on their OS fonts.
    ========================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-    --bg-charcoal: #0b0f14;
-    --bg-slate: #121821;
-    --bg-slate-light: #1a2230;
-    --panel: rgba(26, 34, 48, 0.55);
-    --panel-border: rgba(255, 255, 255, 0.08);
+    /* Surfaces */
+    --bg-base: #0d1117;
+    --bg-panel: #161d27;
+    --bg-panel-2: #1c2530;
+    --bg-panel-solid: #141b24;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
 
-    --emerald: #10b981;
-    --emerald-soft: #34d399;
-    --purple: #a78bfa;
-    --purple-soft: #c4b5fd;
-    --teal: #2dd4bf;
+    /* Brand */
+    --teal: #14b8a6;
+    --teal-strong: #0d9488;
+    --teal-soft: #5eead4;
+    --indigo: #818cf8;
+    --indigo-soft: #a5b4fc;
+    --amber: #f59e0b;
+    --danger: #f87171;
 
-    --text-primary: #f4f6f8;
-    --text-secondary: #9aa5b1;
-    --text-muted: #6b7684;
+    /* Text */
+    --text-hi: #f8fafc;
+    --text-body: #cbd5e1;
+    --text-muted: #8b98a9;
 
-    --radius-lg: 20px;
-    --radius-md: 14px;
-    --radius-sm: 10px;
+    /* On bright accent backgrounds, dark text reads far better
+       than white — this is the fix for the illegible buttons. */
+    --text-on-accent: #06201c;
 
-    --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.35);
-    --shadow-glow-emerald: 0 0 40px rgba(16, 185, 129, 0.15);
-    --shadow-glow-purple: 0 0 40px rgba(167, 139, 250, 0.15);
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 9px;
+
+    --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.38);
+    --shadow-teal: 0 0 0 1px rgba(20, 184, 166, 0.25), 0 8px 24px rgba(20, 184, 166, 0.18);
+
+    --font-head: 'Sora', 'Segoe UI', sans-serif;
+    --font-body: 'Inter', 'Segoe UI', sans-serif;
 }
 
 /* ---------- Base app ---------- */
 .stApp {
     background:
-        radial-gradient(circle at 15% 0%, rgba(16, 185, 129, 0.10), transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(167, 139, 250, 0.12), transparent 45%),
-        radial-gradient(circle at 50% 100%, rgba(45, 212, 191, 0.08), transparent 50%),
-        var(--bg-charcoal);
-    color: var(--text-primary);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        radial-gradient(circle at 12% -5%, rgba(20, 184, 166, 0.08), transparent 42%),
+        radial-gradient(circle at 88% 15%, rgba(129, 140, 248, 0.07), transparent 45%),
+        var(--bg-base);
+    color: var(--text-body);
+    font-family: var(--font-body);
 }
 
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0d1218 0%, #10151d 100%);
-    border-right: 1px solid var(--panel-border);
+    background: linear-gradient(180deg, #0b0f15 0%, #0f151d 100%);
+    border-right: 1px solid var(--border-subtle);
 }
 
 section[data-testid="stSidebar"] * {
-    color: var(--text-primary) !important;
+    font-family: var(--font-body) !important;
 }
 
 #MainMenu, footer, header {
@@ -55,38 +72,107 @@ section[data-testid="stSidebar"] * {
 
 /* ---------- Typography ---------- */
 h1, h2, h3, h4 {
-    font-family: 'Inter', sans-serif;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
+    font-family: var(--font-head);
+    letter-spacing: -0.01em;
+    color: var(--text-hi);
 }
 
-p, span, li, label {
-    color: var(--text-secondary);
+p, span, li, label, div {
+    font-family: var(--font-body);
+}
+
+.stMarkdown p, .stMarkdown li {
+    color: var(--text-body);
+}
+
+/* ==========================================================
+   BUTTONS
+   Streamlit renders every button with kind="primary" or
+   kind="secondary". The previous stylesheet styled ALL
+   buttons identically (the bug) — primary and secondary must
+   look distinct so the active sidebar page is legible and the
+   rest don't compete with it.
+   ========================================================== */
+
+/* Secondary (default / inactive nav items) — quiet, outlined */
+.stButton > button[kind="secondary"],
+.stDownloadButton > button[kind="secondary"] {
+    background: transparent;
+    color: var(--text-body);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+    box-shadow: none;
+}
+
+.stButton > button[kind="secondary"]:hover,
+.stDownloadButton > button[kind="secondary"]:hover {
+    border-color: var(--teal);
+    background: rgba(20, 184, 166, 0.08);
+    color: var(--text-hi);
+}
+
+/* Primary (active nav item / main CTAs) — solid, high-contrast */
+.stButton > button[kind="primary"],
+.stDownloadButton > button[kind="primary"] {
+    background: linear-gradient(135deg, var(--teal), var(--teal-strong));
+    color: var(--text-on-accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.01em;
+    box-shadow: var(--shadow-teal);
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.stButton > button[kind="primary"]:hover,
+.stDownloadButton > button[kind="primary"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 1px rgba(20, 184, 166, 0.4), 0 10px 30px rgba(20, 184, 166, 0.3);
+    color: var(--text-on-accent);
+}
+
+.stButton > button:disabled {
+    opacity: 0.4;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Full-width buttons keep their label centered and readable */
+.stButton > button p, .stDownloadButton > button p {
+    color: inherit !important;
+    font-weight: inherit !important;
 }
 
 /* ---------- Hero ---------- */
 .hero {
-    padding: 64px 40px;
+    padding: 60px 40px;
     border-radius: var(--radius-lg);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.10), rgba(167, 139, 250, 0.10));
-    border: 1px solid var(--panel-border);
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.10), rgba(129, 140, 248, 0.08));
+    border: 1px solid var(--border-subtle);
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
     animation: fadeInUp 0.7s ease;
 }
 
 .hero-title {
-    font-size: 3rem;
+    font-family: var(--font-head);
+    font-size: 2.9rem;
     font-weight: 800;
-    background: linear-gradient(90deg, var(--emerald-soft), var(--purple-soft) 60%, var(--teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 6px;
+    color: var(--text-hi);
+    margin-bottom: 8px;
 }
 
 .hero-subtitle {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
+    font-size: 1.1rem;
+    color: var(--text-body);
     font-weight: 400;
 }
 
@@ -94,50 +180,52 @@ p, span, li, label {
     display: inline-block;
     padding: 6px 16px;
     border-radius: 999px;
-    background: rgba(45, 212, 191, 0.12);
-    border: 1px solid rgba(45, 212, 191, 0.35);
-    color: var(--teal);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    background: rgba(20, 184, 166, 0.14);
+    border: 1px solid rgba(20, 184, 166, 0.4);
+    color: var(--teal-soft);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-bottom: 18px;
+    font-family: var(--font-body);
 }
 
 /* ---------- Glass cards ---------- */
 .glass-card {
-    background: var(--panel);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid var(--panel-border);
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: 24px;
     box-shadow: var(--shadow-soft);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
     height: 100%;
 }
 
 .glass-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(16, 185, 129, 0.4);
-    box-shadow: var(--shadow-glow-emerald);
+    transform: translateY(-5px);
+    border-color: rgba(20, 184, 166, 0.4);
+    box-shadow: var(--shadow-teal);
 }
 
 .glass-card .icon {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin-bottom: 10px;
     display: inline-block;
 }
 
 .glass-card h4 {
+    font-family: var(--font-head);
     margin: 6px 0 8px 0;
     font-size: 1.05rem;
+    font-weight: 700;
 }
 
 .glass-card p {
-    font-size: 0.88rem;
-    line-height: 1.5;
+    font-size: 0.89rem;
+    line-height: 1.55;
     margin: 0;
+    color: var(--text-muted);
 }
 
 /* ---------- Stat pills ---------- */
@@ -145,28 +233,29 @@ p, span, li, label {
     text-align: center;
     padding: 22px 10px;
     border-radius: var(--radius-md);
-    background: var(--panel);
-    border: 1px solid var(--panel-border);
-    transition: transform 0.2s ease;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-subtle);
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .stat-card:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
+    border-color: rgba(20, 184, 166, 0.35);
 }
 
 .stat-number {
-    font-size: 2.1rem;
+    font-family: var(--font-head);
+    font-size: 2rem;
     font-weight: 800;
-    background: linear-gradient(90deg, var(--emerald-soft), var(--teal));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--teal-soft);
 }
 
 .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-weight: 600;
 }
 
 /* ---------- Status badges ---------- */
@@ -177,81 +266,94 @@ p, span, li, label {
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.02em;
+    font-family: var(--font-body);
 }
 
 .badge-matched {
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--emerald-soft);
-    border: 1px solid rgba(16, 185, 129, 0.4);
+    background: rgba(20, 184, 166, 0.16);
+    color: var(--teal-soft);
+    border: 1px solid rgba(20, 184, 166, 0.45);
 }
 
 .badge-review {
-    background: rgba(167, 139, 250, 0.15);
-    color: var(--purple-soft);
-    border: 1px solid rgba(167, 139, 250, 0.4);
+    background: rgba(129, 140, 248, 0.16);
+    color: var(--indigo-soft);
+    border: 1px solid rgba(129, 140, 248, 0.45);
 }
 
 .badge-low {
-    background: rgba(248, 113, 113, 0.12);
-    color: #f87171;
-    border: 1px solid rgba(248, 113, 113, 0.35);
-}
-
-/* ---------- Buttons ---------- */
-.stButton > button, .stDownloadButton > button {
-    background: linear-gradient(90deg, var(--emerald), var(--teal));
-    color: #06120e;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 0.65rem 1.4rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.25);
-}
-
-.stButton > button:hover, .stDownloadButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 26px rgba(16, 185, 129, 0.4);
-    color: #06120e;
+    background: rgba(248, 113, 113, 0.14);
+    color: var(--danger);
+    border: 1px solid rgba(248, 113, 113, 0.4);
 }
 
 /* ---------- File uploader ---------- */
 [data-testid="stFileUploaderDropzone"] {
-    background: var(--panel);
-    border: 1.5px dashed rgba(167, 139, 250, 0.4);
+    background: var(--bg-panel);
+    border: 1.5px dashed var(--border-strong);
     border-radius: var(--radius-md);
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 [data-testid="stFileUploaderDropzone"]:hover {
-    border-color: var(--emerald);
-    background: rgba(16, 185, 129, 0.06);
+    border-color: var(--teal);
+    background: rgba(20, 184, 166, 0.06);
 }
 
 /* ---------- Section divider ---------- */
 .section-label {
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-size: 0.78rem;
-    color: var(--teal);
+    font-size: 0.76rem;
+    color: var(--teal-soft);
     font-weight: 700;
     margin-bottom: 6px;
+    font-family: var(--font-body);
 }
 
 /* ---------- Footer ---------- */
 .app-footer {
-    margin-top: 60px;
-    padding: 24px 0 10px 0;
-    border-top: 1px solid var(--panel-border);
+    margin-top: 56px;
+    padding: 22px 0 10px 0;
+    border-top: 1px solid var(--border-subtle);
     text-align: center;
     color: var(--text-muted);
     font-size: 0.82rem;
 }
 
 .app-footer a {
-    color: var(--emerald-soft);
+    color: var(--teal-soft);
     text-decoration: none;
+}
+
+/* ---------- Progress bar ---------- */
+.stProgress > div > div > div {
+    background: linear-gradient(90deg, var(--teal), var(--indigo)) !important;
+}
+
+.stProgress > div > div {
+    background: var(--bg-panel-2) !important;
+}
+
+/* ---------- Alerts (success / info / warning / error) ---------- */
+[data-testid="stAlertContentSuccess"],
+[data-testid="stAlertContentInfo"],
+[data-testid="stAlertContentWarning"],
+[data-testid="stAlertContentError"] {
+    font-family: var(--font-body);
+}
+
+div[data-baseweb="notification"] {
+    border-radius: var(--radius-sm);
+}
+
+/* ---------- Slider / form widgets ---------- */
+.stSlider [role="slider"] {
+    background-color: var(--teal) !important;
+}
+
+.stSlider > div > div > div > div {
+    background: var(--teal) !important;
 }
 
 /* ---------- Animations ---------- */
@@ -268,5 +370,28 @@ p, span, li, label {
 [data-testid="stDataFrame"] {
     border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--panel-border);
+    border: 1px solid var(--border-subtle);
+    font-family: var(--font-body);
+}
+
+/* Rendered mapping table (st.markdown to_html) */
+table {
+    font-family: var(--font-body);
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th {
+    background: var(--bg-panel-2);
+    color: var(--text-hi);
+    font-weight: 700;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-strong);
+}
+
+table td {
+    padding: 10px 14px;
+    color: var(--text-body);
+    border-bottom: 1px solid var(--border-subtle);
 }
