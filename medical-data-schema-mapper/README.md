@@ -352,7 +352,7 @@ The app will open automatically at `http://localhost:8501`.
 
 | Download | About |
 |---|---|
-| ![Download](images/download.png) | ![About](images/screenshot-about.png) |
+| ![Download](images/download.png) | ![About](images/about.png) |
 
 </div>
 
