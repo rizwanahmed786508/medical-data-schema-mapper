@@ -356,7 +356,6 @@ The app will open automatically at `http://localhost:8501`.
 
 </div>
 
-> ⚠️ **Note:** Add your own screenshots to the `images/` folder using the filenames above — these are placeholders.
 
 ---
 
