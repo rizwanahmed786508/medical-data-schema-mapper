@@ -10,6 +10,7 @@ lives in utils.py and is an exact port of the original notebook.
 
 import io
 import json
+import os
 
 import pandas as pd
 import streamlit as st
@@ -26,11 +27,22 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# ----------------------------------------------------------
+# Base directory of this file (NOT the current working directory).
+# Streamlit Cloud's working directory does not always match the
+# folder app.py lives in, especially when the repo has a nested
+# folder structure. Building paths from __file__ makes style.css,
+# and any other local asset, resolve correctly no matter where
+# the app is deployed from.
+# ----------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 # ----------------------------------------------------------
 # Load CSS
 # ----------------------------------------------------------
-def load_css(path: str):
+def load_css(filename: str):
+    path = os.path.join(BASE_DIR, filename)
     with open(path, "r") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
@@ -97,7 +109,7 @@ def render_footer():
         """
         <div class="app-footer">
             Medical Data Schema Mapper &nbsp;·&nbsp; v1.0.0 &nbsp;·&nbsp;
-            Built by <b>Rizwan Ahmed </b> &nbsp;·&nbsp;
+            Built by <b>Your Name</b> &nbsp;·&nbsp;
             <a href="https://github.com/" target="_blank">GitHub</a> &nbsp;·&nbsp;
             © 2026 All rights reserved.
         </div>
