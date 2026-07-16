@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Banner: replace with a real 1280x320 banner image at images/banner.png -->
-<img src="images/banner.png" alt="Medical Data Schema Mapper Banner" width="100%">
+<img src="images/banner.svg" alt="Medical Data Schema Mapper Banner" width="100%">
 
 # 🧬 Medical Data Schema Mapper
 
